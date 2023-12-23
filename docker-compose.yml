@@ -1,0 +1,22 @@
+services:
+  app-dc:
+    container_name: watch-store-container-dc
+    build: ./
+    ports:
+      - 8181:8080
+    volumes:
+      - watch-store-volume-dc:/app
+
+  nginx-dc:
+    container_name: nginx-container-dc
+    build: ./nginx
+    ports:
+      - 81:80
+    volumes:
+      - watch-store-volume-dc:/app
+    depends_on:
+      - app-dc
+
+
+volumes:
+  watch-store-volume-dc:
